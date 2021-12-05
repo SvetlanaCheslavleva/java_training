@@ -1,4 +1,4 @@
-package ru.stqa.trening.addressbook;
+package ru.stqa.trening.addressbook.model;
 
 public class UserData {
   private final String user_firstname;
