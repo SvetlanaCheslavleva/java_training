@@ -30,4 +30,21 @@ public class UserHelper extends HelperBase{
   public void initUserCreation() {
     click(By.linkText("add new"));
   }
+
+  public void gotoUserPage() {
+    click(By.linkText("home"));
+  }
+
+  public void initUserModification() {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[4]/td[8]/a/img"));
+  }
+
+  public void deleteModificationUser() {
+    click(By.xpath("//div[@id='content']/form[2]/input[2]"));
+  }
+
+  public void submitUserModificatoin() {
+    click(By.xpath("//div[@id='content']/form/input[22]"));
+  }
 }
+
