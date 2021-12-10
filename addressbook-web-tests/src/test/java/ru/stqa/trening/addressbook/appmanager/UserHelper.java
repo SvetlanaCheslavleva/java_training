@@ -51,5 +51,15 @@ public class UserHelper extends HelperBase{
     click(By.xpath("//input[22]"));
   }
 
+  public void createUser(UserData user) {
+    initUserCreation();
+    fillUserForm(user, true);
+    submitUserCreation();
+    returnToHomePage();
+  }
+
+  public boolean isThereAUser() {
+    return isElementPresent(By.xpath("//img[@alt='Edit']"));
+  }
 }
 

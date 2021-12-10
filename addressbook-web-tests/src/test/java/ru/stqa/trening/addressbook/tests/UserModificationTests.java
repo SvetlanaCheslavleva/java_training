@@ -8,6 +8,9 @@ public class UserModificationTests extends TestBase {
   @Test
   public void testUserModification(){
     app.getNavigationHelper().gotoHomePage();
+    if (!app.getUserHelper().isThereAUser()){
+      app.getUserHelper().createUser(new UserData("test_user_firstname", "test_user_lastname", "test_address", "test_phone", "test_email", "Test_1"));
+    }
     app.getUserHelper().initUserModification();
     app.getUserHelper().fillUserForm(new UserData("3test_user_firstname", "3test_user_lastname", "3test_address", "3test_phone", "3test_email", null), false);
     app.getUserHelper().submitUserModificatoin();
