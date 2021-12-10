@@ -6,7 +6,7 @@ public class UserDeletionTests extends TestBase {
 
   @Test
   public void testUserDeletion(){
-    app.getUserHelper().gotoUserPage();
+    app.getNavigationHelper().gotoHomePage();
     app.getUserHelper().initUserModification();
     app.getUserHelper().deleteModificationUser();
   }

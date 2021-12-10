@@ -15,4 +15,7 @@ public class SessionHelper extends HelperBase {
     click(By.xpath("//input[@value='Login']"));
   }
 
+  public void gotoHomePage() {
+    click(By.linkText("home"));
+  }
 }
