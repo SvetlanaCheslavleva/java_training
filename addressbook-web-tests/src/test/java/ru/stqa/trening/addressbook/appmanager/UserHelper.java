@@ -2,8 +2,10 @@ package ru.stqa.trening.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.trening.addressbook.model.GroupData;
 import ru.stqa.trening.addressbook.model.UserData;
 
 public class UserHelper extends HelperBase{
@@ -28,7 +30,9 @@ public class UserHelper extends HelperBase{
     type(By.name("mobile"), userData.getPhone());
     type(By.name("email"), userData.getEmail());
 
+
     if (creation){
+
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
     }else{
       Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -60,6 +64,19 @@ public class UserHelper extends HelperBase{
 
   public boolean isThereAUser() {
     return isElementPresent(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public String findGroupNameInList(String groupName) {
+    initUserCreation();
+    Select dropdownGroup = new Select(wd.findElement(By.name("new_group")));
+    String userGroupName = null;
+    for (WebElement element: dropdownGroup.getOptions()) {
+      if (element.getText().equals(groupName)) {
+        userGroupName = groupName;
+        break;
+      }
+    }
+    return userGroupName;
   }
 }
 
