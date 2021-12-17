@@ -32,8 +32,9 @@ public class UserHelper extends HelperBase{
 
 
     if (creation){
-
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+      if (userData.getGroup() != null){
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+      }
     }else{
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
