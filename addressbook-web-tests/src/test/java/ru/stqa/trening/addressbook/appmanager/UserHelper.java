@@ -119,7 +119,7 @@ public class UserHelper extends HelperBase{
       List<WebElement> userParametrs = element.findElements(By.xpath(".//td"));
       String firstName = userParametrs.get(2).getText();
       String lastName = userParametrs.get(1).getText();
-      String id = element.findElement(By.tagName("input")).getAttribute("value");
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       UserData user = new UserData(id, firstName, lastName, null, null, null, null);
       users.add(user);
     }
