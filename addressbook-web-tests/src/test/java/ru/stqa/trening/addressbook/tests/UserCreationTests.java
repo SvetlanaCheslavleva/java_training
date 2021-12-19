@@ -5,18 +5,18 @@ import org.testng.annotations.Test;
 import ru.stqa.trening.addressbook.model.UserData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class UserCreationTests extends TestBase {
 
   @Test
   public void testUserCreation()  {
-    app.getNavigationHelper().gotoHomePage();
-    List<UserData> before = app.getUserHelper().getUserList();
-    UserData user = new UserData("test_user_firstname", "test_user_lastname", "test_address", "test_phone", "test_email", null);
-    app.getUserHelper().createUser(user);
-    List<UserData> after = app.getUserHelper().getUserList();
+    app.goTo().homePage();
+    List<UserData> before = app.user().list();
+    UserData user = new UserData().withUser_firstname("test_user_firstname").withUser_lastname("test_user_lastname")
+            .withAddress("test_address").withPhone("test_phone").withEmail("test_email");
+    app.user().create(user);
+    List<UserData> after = app.user().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     before.add(user);

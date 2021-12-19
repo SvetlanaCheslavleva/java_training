@@ -70,11 +70,25 @@ public class UserHelper extends HelperBase{
     click(By.xpath("//input[22]"));
   }
 
-  public void createUser(UserData user) {
+  public void create(UserData user) {
     initUserCreation();
     fillUserForm(user, true);
     submitUserCreation();
     returnToHomePage();
+  }
+
+  public void modify(int index, UserData user) {
+    initUserModification(index);
+    fillUserForm(user, false);
+    submitUserModification();
+    returnToHomePage();
+  }
+
+  public void delete(int index) {
+    selectUser(index);
+    deleteSelectedUser();
+    closeAlert();
+    pause();
   }
 
   public boolean isThereAUser() {
@@ -112,7 +126,7 @@ public class UserHelper extends HelperBase{
     }
   }
 
-  public List<UserData> getUserList() {
+  public List<UserData> list() {
     List<UserData> users = new ArrayList<UserData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']"));
     for (WebElement element: elements) {
@@ -120,8 +134,7 @@ public class UserHelper extends HelperBase{
       String firstName = userParametrs.get(2).getText();
       String lastName = userParametrs.get(1).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      UserData user = new UserData(id, firstName, lastName, null, null, null, null);
-      users.add(user);
+      users.add(new UserData().withId(id).withUser_firstname(firstName).withUser_lastname(lastName));
     }
     return users;
   }
