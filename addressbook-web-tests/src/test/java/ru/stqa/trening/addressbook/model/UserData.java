@@ -91,12 +91,12 @@ public class UserData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UserData userData = (UserData) o;
-    return Objects.equals(user_firstname, userData.user_firstname) && Objects.equals(user_lastname, userData.user_lastname);
+    return id == userData.id && Objects.equals(user_firstname, userData.user_firstname) && Objects.equals(user_lastname, userData.user_lastname);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(user_firstname, user_lastname);
+    return Objects.hash(id, user_firstname, user_lastname);
   }
 
 }

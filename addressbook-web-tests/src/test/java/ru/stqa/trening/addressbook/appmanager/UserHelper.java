@@ -6,9 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.trening.addressbook.model.UserData;
+import ru.stqa.trening.addressbook.model.Users;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserHelper extends HelperBase{
 
@@ -46,12 +48,12 @@ public class UserHelper extends HelperBase{
     click(By.linkText("add new"));
   }
 
-  public void initUserModification(int index) {
-       wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+  public void initUserModification(int id) {
+    click(By.xpath("//a[@href='edit.php?id=" + id +"']"));  // //a[@href='edit.php?id=99']
   }
 
-  public void selectUser(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+  public void selectUserById(int id)  {
+    wd.findElement(By.cssSelector("input[value='" + id +"']")).click();  // "input[value='99']"
   }
 
   public void closeAlertPresent(){
@@ -77,15 +79,15 @@ public class UserHelper extends HelperBase{
     returnToHomePage();
   }
 
-  public void modify(int index, UserData user) {
-    initUserModification(index);
+  public void modify(UserData user) {
+    initUserModification(user.getId());
     fillUserForm(user, false);
     submitUserModification();
     returnToHomePage();
   }
 
-  public void delete(int index) {
-    selectUser(index);
+  public void delete(UserData user) {
+    selectUserById(user.getId());
     deleteSelectedUser();
     closeAlert();
     pause();
@@ -126,8 +128,8 @@ public class UserHelper extends HelperBase{
     }
   }
 
-  public List<UserData> list() {
-    List<UserData> users = new ArrayList<UserData>();
+  public Users all() {
+    Users users = new Users();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']"));
     for (WebElement element: elements) {
       List<WebElement> userParametrs = element.findElements(By.xpath(".//td"));
@@ -138,6 +140,7 @@ public class UserHelper extends HelperBase{
     }
     return users;
   }
+
 }
 
 
