@@ -20,6 +20,15 @@ public class GroupHelper extends HelperBase {
     click(By.linkText("group page"));
   }
 
+  public void groupPage() {
+    if (isElementPresent(By.tagName("h1"))
+            && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+            && isElementPresent(By.name("new_group"))) {
+      return;
+    }
+    click(By.linkText("groups"));
+  }
+
   public void submitGroupCreation() {
     click(By.name("submit"));
   }
@@ -59,7 +68,7 @@ public class GroupHelper extends HelperBase {
     fillGroupForm(group);
     submitGroupCreation();
     groupCache = null;
-    returnToGroupPage();
+    groupPage();
   }
 
   public void modify(GroupData group) {
@@ -68,7 +77,7 @@ public class GroupHelper extends HelperBase {
     fillGroupForm(group);
     submitGroupModification();
     groupCache = null;
-    returnToGroupPage();
+    groupPage();
   }
 
   public void delete(GroupData group) {

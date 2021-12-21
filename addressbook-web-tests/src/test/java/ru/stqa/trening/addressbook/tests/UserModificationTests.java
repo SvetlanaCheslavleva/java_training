@@ -7,7 +7,6 @@ import ru.stqa.trening.addressbook.model.Users;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class UserModificationTests extends TestBase {
 
@@ -28,8 +27,8 @@ public class UserModificationTests extends TestBase {
    UserData user = new UserData().withId(modifiedUser.getId()).withUser_firstname("3test_user_firstname")
             .withUser_lastname("3test_user_lastname").withAddress("3test_address").withPhone("3test_phone").withEmail("3test_email");
     app.user().modify(user);
+    assertThat(app.user().count(), equalTo(before.size()));
     Users after = app.user().all();
-    assertEquals(after.size(), before.size());
     assertThat(after, equalTo(before.without(modifiedUser).withAdded(user)));
 
   }

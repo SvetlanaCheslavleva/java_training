@@ -7,7 +7,6 @@ import ru.stqa.trening.addressbook.model.Users;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class UserDeletionTests extends TestBase {
 
@@ -26,8 +25,8 @@ public class UserDeletionTests extends TestBase {
     Users before = app.user().all();
     UserData deletedUser = before.iterator().next();
     app.user().delete(deletedUser);
+    assertThat(app.user().count(), equalTo(before.size() - 1));
     Users after = app.user().all();
-    assertEquals(after.size(), before.size() - 1);
     assertThat(after, equalTo(before.without(deletedUser)));
 
 

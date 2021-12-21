@@ -23,6 +23,15 @@ public class UserHelper extends HelperBase{
     click(By.linkText("home page"));
   }
 
+  public void homePage() {
+    if (isElementPresent(By.id("maintable"))){
+      return;
+    }
+    click(By.linkText("home"));
+  }
+
+
+
   public void submitUserCreation() {
     click(By.xpath("//input[21]"));
   }
@@ -76,14 +85,16 @@ public class UserHelper extends HelperBase{
     initUserCreation();
     fillUserForm(user, true);
     submitUserCreation();
-    returnToHomePage();
+    userCache = null;
+    homePage();
   }
 
   public void modify(UserData user) {
     initUserModification(user.getId());
     fillUserForm(user, false);
     submitUserModification();
-    returnToHomePage();
+    userCache = null;
+    homePage();
   }
 
   public void delete(UserData user) {
@@ -91,6 +102,7 @@ public class UserHelper extends HelperBase{
     deleteSelectedUser();
     closeAlert();
     pause();
+    userCache = null;
   }
 
   public boolean isThereAUser() {
@@ -110,7 +122,7 @@ public class UserHelper extends HelperBase{
     return userGroupName;
   }
 
-  public int getUserCount() {
+  public int count() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
@@ -128,17 +140,22 @@ public class UserHelper extends HelperBase{
     }
   }
 
+  private Users userCache = null;
+
   public Users all() {
-    Users users = new Users();
+    if (userCache != null){
+      return new Users(userCache);
+    }
+    userCache = new Users();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']"));
     for (WebElement element: elements) {
       List<WebElement> userParametrs = element.findElements(By.xpath(".//td"));
       String firstName = userParametrs.get(2).getText();
       String lastName = userParametrs.get(1).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      users.add(new UserData().withId(id).withUser_firstname(firstName).withUser_lastname(lastName));
+      userCache.add(new UserData().withId(id).withUser_firstname(firstName).withUser_lastname(lastName));
     }
-    return users;
+    return new Users(userCache);
   }
 
 }
