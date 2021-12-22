@@ -5,10 +5,13 @@ import java.util.Objects;
 public class UserData {
 
   private int id = Integer.MAX_VALUE;
-  private String user_firstname;
-  private String user_lastname;
+  private String userFirstname;
+  private String userLastname;
   private String address;
-  private String phone;
+  private String homePhone;
+  private String mobilePhone;
+  private String workPhone;
+  private String allPhones;
   private String email;
   private String group;
 
@@ -18,13 +21,13 @@ public class UserData {
     return this;
   }
 
-  public UserData withUser_firstname(String user_firstname) {
-    this.user_firstname = user_firstname;
+  public UserData withUserFirstname(String userFirstname) {
+    this.userFirstname = userFirstname;
     return this;
   }
 
-  public UserData withUser_lastname(String user_lastname) {
-    this.user_lastname = user_lastname;
+  public UserData withUserLastname(String userLastname) {
+    this.userLastname = userLastname;
     return this;
   }
 
@@ -33,8 +36,23 @@ public class UserData {
     return this;
   }
 
-  public UserData withPhone(String phone) {
-    this.phone = phone;
+  public UserData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
+  public UserData withMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
+    return this;
+  }
+
+  public UserData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
+    return this;
+  }
+
+  public UserData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
     return this;
   }
 
@@ -52,20 +70,32 @@ public class UserData {
     return id;
   }
 
-  public String getUser_firstname() {
-    return user_firstname;
+  public String getUserFirstname() {
+    return userFirstname;
   }
 
-  public String getUser_lastname() {
-    return user_lastname;
+  public String getUserLastname() {
+    return userLastname;
   }
 
   public String getAddress() {
     return address;
   }
 
-  public String getPhone() {
-    return phone;
+  public String getHomePhone() {
+    return homePhone;
+  }
+
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+
+  public String getWorkPhone() {
+    return workPhone;
+  }
+
+  public String getAllPhones() {
+    return allPhones;
   }
 
   public String getEmail() {
@@ -81,8 +111,8 @@ public class UserData {
   public String toString() {
     return "UserData{" +
             "id='" + id + '\'' +
-            ", user_firstname='" + user_firstname + '\'' +
-            ", user_lastname='" + user_lastname + '\'' +
+            ", user_firstname='" + userFirstname + '\'' +
+            ", user_lastname='" + userLastname + '\'' +
             '}';
   }
 
@@ -91,12 +121,12 @@ public class UserData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UserData userData = (UserData) o;
-    return id == userData.id && Objects.equals(user_firstname, userData.user_firstname) && Objects.equals(user_lastname, userData.user_lastname);
+    return id == userData.id && Objects.equals(userFirstname, userData.userFirstname) && Objects.equals(userLastname, userData.userLastname);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, user_firstname, user_lastname);
+    return Objects.hash(id, userFirstname, userLastname);
   }
 
 }

@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.trening.addressbook.model.UserData;
 import ru.stqa.trening.addressbook.model.Users;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class UserHelper extends HelperBase{
 
@@ -37,10 +35,12 @@ public class UserHelper extends HelperBase{
   }
 
   public void fillUserForm(UserData userData, boolean creation) {
-    type(By.name("firstname"), userData.getUser_firstname());
-    type(By.name("lastname"), userData.getUser_lastname());
+    type(By.name("firstname"), userData.getUserFirstname());
+    type(By.name("lastname"), userData.getUserLastname());
     type(By.name("address"), userData.getAddress());
-    type(By.name("mobile"), userData.getPhone());
+    type(By.name("home"), userData.getHomePhone());
+    type(By.name("mobile"), userData.getMobilePhone());
+    type(By.name("work"), userData.getWorkPhone());
     type(By.name("email"), userData.getEmail());
 
 
@@ -57,7 +57,7 @@ public class UserHelper extends HelperBase{
     click(By.linkText("add new"));
   }
 
-  public void initUserModification(int id) {
+  public void initUserModificationById(int id) {
     click(By.xpath("//a[@href='edit.php?id=" + id +"']"));  // //a[@href='edit.php?id=99']
   }
 
@@ -90,7 +90,7 @@ public class UserHelper extends HelperBase{
   }
 
   public void modify(UserData user) {
-    initUserModification(user.getId());
+    initUserModificationById(user.getId());
     fillUserForm(user, false);
     submitUserModification();
     userCache = null;
@@ -149,15 +149,37 @@ public class UserHelper extends HelperBase{
     userCache = new Users();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']"));
     for (WebElement element: elements) {
-      List<WebElement> userParametrs = element.findElements(By.xpath(".//td"));
-      String firstName = userParametrs.get(2).getText();
-      String lastName = userParametrs.get(1).getText();
+      List<WebElement> userParameters = element.findElements(By.xpath(".//td"));
+      String firstName = userParameters.get(2).getText();
+      String lastName = userParameters.get(1).getText();
+      String allPhones = userParameters.get(5).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      userCache.add(new UserData().withId(id).withUser_firstname(firstName).withUser_lastname(lastName));
+      userCache.add(new UserData().withId(id).withUserFirstname(firstName).withUserLastname(lastName)
+              .withAllPhones(allPhones));
     }
     return new Users(userCache);
   }
 
+  public UserData infoFromEditForm(UserData user) {
+    initUserModificationById(user.getId());
+    String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lastName = wd.findElement(By.name("lastname")).getAttribute("value");
+    String home = wd.findElement(By.name("home")).getAttribute("value");
+    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    String work = wd.findElement(By.name("work")).getAttribute("value");
+    wd.navigate().back();
+    return new UserData().withId(user.getId()).withUserFirstname(firstName).withUserLastname(lastName)
+            .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+  }
+
+ /* private void initUserModificationById(int id) {
+    WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='$s']", id)));
+    WebElement row = checkbox.findElement(By.xpath("./../../"));
+    List<WebElement> cells = row.findElements(By.tagName("td"));
+    cells.get(7).findElement(By.tagName("a")).click();
+
+ //   wd.findElement(By.cssSelector(String.format("a[href='edit.php&id=%s']", id))).click();
+  }*/
 }
 
 
