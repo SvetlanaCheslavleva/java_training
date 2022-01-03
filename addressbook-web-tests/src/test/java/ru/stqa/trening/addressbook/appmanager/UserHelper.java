@@ -153,9 +153,11 @@ public class UserHelper extends HelperBase{
       String firstName = userParameters.get(2).getText();
       String lastName = userParameters.get(1).getText();
       String allPhones = userParameters.get(5).getText();
+      String address = userParameters.get(3).getText();
+      String allEmails = userParameters.get(4).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       userCache.add(new UserData().withId(id).withUserFirstname(firstName).withUserLastname(lastName)
-              .withAllPhones(allPhones));
+              .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails));
     }
     return new Users(userCache);
   }
@@ -167,9 +169,15 @@ public class UserHelper extends HelperBase{
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
     String work = wd.findElement(By.name("work")).getAttribute("value");
+    String home2 = wd.findElement(By.name("phone2")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getAttribute("value");
+    String email = wd.findElement(By.name("email")).getAttribute("value");
+    String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+    String email3 = wd.findElement(By.name("email3")).getAttribute("value");
     wd.navigate().back();
     return new UserData().withId(user.getId()).withUserFirstname(firstName).withUserLastname(lastName)
-            .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+            .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withHomePhone2(home2).withAddress(address)
+            .withEmail(email).withEmail2(email2).withEmail3(email3);
   }
 
  /* private void initUserModificationById(int id) {

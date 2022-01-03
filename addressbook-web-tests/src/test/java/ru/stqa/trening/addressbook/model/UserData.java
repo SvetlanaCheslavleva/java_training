@@ -11,8 +11,12 @@ public class UserData {
   private String homePhone;
   private String mobilePhone;
   private String workPhone;
+  private String homePhone2;
   private String allPhones;
   private String email;
+  private String email2;
+  private String email3;
+  private String allEmails;
   private String group;
 
 
@@ -31,11 +35,6 @@ public class UserData {
     return this;
   }
 
-  public UserData withAddress(String address) {
-    this.address = address;
-    return this;
-  }
-
   public UserData withHomePhone(String homePhone) {
     this.homePhone = homePhone;
     return this;
@@ -51,13 +50,41 @@ public class UserData {
     return this;
   }
 
+  public UserData withHomePhone2(String homePhone2) {
+    this.homePhone2 = homePhone2;
+    return this;
+  }
+
   public UserData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
   }
 
+
+  public UserData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
   public UserData withEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+
+  public UserData withEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+
+  public UserData withEmail3(String email3) {
+    this.email3 = email3;
+    return this;
+  }
+
+  public UserData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
     return this;
   }
 
@@ -78,9 +105,6 @@ public class UserData {
     return userLastname;
   }
 
-  public String getAddress() {
-    return address;
-  }
 
   public String getHomePhone() {
     return homePhone;
@@ -94,12 +118,32 @@ public class UserData {
     return workPhone;
   }
 
+  public String getHomePhone2() {
+    return homePhone2;
+  }
+
   public String getAllPhones() {
     return allPhones;
   }
 
+  public String getAddress() {
+    return address;
+  }
+
   public String getEmail() {
     return email;
+  }
+
+  public String getEmail2() {
+    return email2;
+  }
+
+  public String getEmail3() {
+    return email3;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
   }
 
   public String getGroup() {
