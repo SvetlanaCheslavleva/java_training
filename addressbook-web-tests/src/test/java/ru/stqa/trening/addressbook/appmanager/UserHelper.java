@@ -42,6 +42,7 @@ public class UserHelper extends HelperBase{
     type(By.name("mobile"), userData.getMobilePhone());
     type(By.name("work"), userData.getWorkPhone());
     type(By.name("email"), userData.getEmail());
+    attach(By.name("photo"), userData.getPhoto());
 
 
     if (creation){
