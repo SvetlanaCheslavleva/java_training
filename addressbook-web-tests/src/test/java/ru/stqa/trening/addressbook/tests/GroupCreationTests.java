@@ -1,19 +1,32 @@
 package ru.stqa.trening.addressbook.tests;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.trening.addressbook.model.GroupData;
 import ru.stqa.trening.addressbook.model.Groups;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase{
 
-  @Test
-    public void testGroupCreation() throws Exception {
+  @DataProvider
+  public Iterator<Object[]> validGroups() {
+    List<Object[]> list = new ArrayList<Object[]>();
+    list.add(new Object[] {new GroupData().withName("test1").withHeader("header 1").withFooter("footer 1")});
+    list.add(new Object[] {new GroupData().withName("test2").withHeader("header 2").withFooter("footer 2")});
+    list.add(new Object[] {new GroupData().withName("test3").withHeader("header 3").withFooter("footer 3")});
+    return list.listIterator();
+  }
+
+  @Test(dataProvider = "validGroups")
+    public void testGroupCreation(GroupData group) throws Exception {
     app.goTo().groupPage();
     Groups before = app.group().all();
-    GroupData group = new GroupData().withName("Test_1").withHeader("Test_2").withFooter("Test_3");
     app.group().create(group);
     assertThat(app.group().Count(), equalTo(before.size() + 1));
     Groups after = app.group().all();
@@ -21,7 +34,7 @@ public class GroupCreationTests extends TestBase{
             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
 
-  @Test
+  @Test(enabled = false)
   public void testBadGroupCreation() throws Exception {
     app.goTo().groupPage();
     Groups before = app.group().all();
