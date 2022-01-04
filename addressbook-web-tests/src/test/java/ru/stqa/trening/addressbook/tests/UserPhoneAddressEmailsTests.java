@@ -59,15 +59,18 @@ public class UserPhoneAddressEmailsTests extends TestBase{
 
 
   public static String cleanedPhone(String phone){
+
     return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
 
   public static String cleanedAddress(String address){
-    return address.replaceAll("\\s", "");
+
+    return address.trim().replaceAll(" +", " ");
   }
 
   public static String cleanedEmail(String email){
-    return email.replaceAll("\\s", "").replaceAll("", "");
+
+    return email.trim().replaceAll(" +", " ");
   }
 
 }
