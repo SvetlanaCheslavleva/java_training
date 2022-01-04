@@ -6,7 +6,7 @@ import ru.stqa.trening.addressbook.model.GroupData;
 import ru.stqa.trening.addressbook.model.UserData;
 import ru.stqa.trening.addressbook.model.Users;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,15 +17,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class UserCreationTests extends TestBase {
 
   @DataProvider
-  public Iterator<Object[]> validUsers() {
+  public Iterator<Object[]> validUsers() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
     File photo = new File("src/test/resources/stru.png");
-    list.add(new Object[] {new UserData().withUserFirstname("firstName1").withUserLastname("lastName1")
-            .withAddress("address1").withHomePhone("phone1").withEmail("email1").withPhoto(photo)});
-    list.add(new Object[] {new UserData().withUserFirstname("firstName2").withUserLastname("lastName2")
-            .withAddress("address2").withHomePhone("phone2").withEmail("email2").withPhoto(photo)});
-    list.add(new Object[] {new UserData().withUserFirstname("firstName3").withUserLastname("lastName3")
-            .withAddress("address3").withHomePhone("phone3").withEmail("email3").withPhoto(photo)});
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/user.csv")));
+    String line = reader.readLine();
+    while (line != null) {
+      String[] split = line.split(";");
+      list.add(new Object[] {new UserData().withUserFirstname(split[0]).withUserLastname(split[1])
+              .withAddress(split[2]).withHomePhone(split[3]).withEmail(split[4]).withPhoto(photo)});
+      line = reader.readLine();
+    }
     return list.listIterator();
   }
 
