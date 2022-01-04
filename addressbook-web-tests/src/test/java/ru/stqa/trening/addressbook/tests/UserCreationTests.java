@@ -2,7 +2,6 @@ package ru.stqa.trening.addressbook.tests;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.stqa.trening.addressbook.model.GroupData;
 import ru.stqa.trening.addressbook.model.UserData;
 import ru.stqa.trening.addressbook.model.Users;
 
@@ -20,7 +19,7 @@ public class UserCreationTests extends TestBase {
   public Iterator<Object[]> validUsers() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
     File photo = new File("src/test/resources/stru.png");
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/user.csv")));
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.csv")));
     String line = reader.readLine();
     while (line != null) {
       String[] split = line.split(";");
