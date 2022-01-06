@@ -28,7 +28,6 @@ public class DbConnectionTest {
       System.out.println(groups);
 
     } catch (SQLException ex) {
-      // handle any errors
       System.out.println("SQLExeption: " + ex.getMessage());
       System.out.println("SQLState: " + ex.getSQLState());
       System.out.println("VendorError " + ex.getErrorCode());
@@ -53,7 +52,6 @@ public class DbConnectionTest {
       System.out.println(users);
 
     } catch (SQLException ex) {
-      // handle any errors
       System.out.println("SQLExeption: " + ex.getMessage());
       System.out.println("SQLState: " + ex.getSQLState());
       System.out.println("VendorError " + ex.getErrorCode());

@@ -3,42 +3,82 @@ package ru.stqa.trening.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("user")
+@Entity
+@Table(name = "addressbook")
+
 public class UserData {
   @XStreamOmitField
+  @Id
+  @Column(name = "Id")
   private int id = Integer.MAX_VALUE;
+
   @Expose
+  @Column(name = "firstname")
   private String userFirstname;
+
   @Expose
+  @Column(name = "lastname")
   private String userLastname;
+
   @Expose
+  @Column(name = "address")
+  @Type(type = "text")
   private String address;
+
   @Expose
+  @Column(name = "home")
+  @Type(type = "text")
   private String homePhone;
+
   @Expose
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobilePhone;
+
   @Expose
+  @Column(name = "work")
+  @Type(type = "text")
   private String workPhone;
+
   @Expose
+  @Transient
   private String homePhone2;
+
   @Expose
+  @Transient
   private String allPhones;
+
   @Expose
+  @Transient
   private String email;
+
   @Expose
+  @Transient
   private String email2;
+
   @Expose
+  @Transient
   private String email3;
+
   @Expose
+  @Transient
   private String allEmails;
+
   @Expose
+  @Transient
   private String group;
+
   @Expose
-  private File photo;
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String photo;
 
 
 
@@ -111,7 +151,7 @@ public class UserData {
   }
 
   public UserData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -174,7 +214,7 @@ public class UserData {
   }
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public String getGroup() {
