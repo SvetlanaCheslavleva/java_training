@@ -214,8 +214,12 @@ public class UserData {
   }
 
   public File getPhoto() {
-    return new File(photo);
-  }
+    if (photo != null) {
+      return new File(photo);
+    } else {
+      return null;
+    }
+ }
 
   public String getGroup() {
     return group;
@@ -243,5 +247,4 @@ public class UserData {
   public int hashCode() {
     return Objects.hash(id, userFirstname, userLastname);
   }
-
 }

@@ -12,8 +12,8 @@ public class UserModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions(){
-    app.goTo().homePage();
-    if (app.user().all().size() == 0){
+    if (app.db().users().size() == 0) {
+      app.goTo().homePage();
       UserData user = new UserData().withUserFirstname("test_user_firstname").withUserLastname("test_user_lastname")
               .withAddress("test_address").withHomePhone("test_phone").withMobilePhone("mobile").withWorkPhone("workPhone").withEmail("test_email");
       app.user().create(user);
@@ -22,13 +22,14 @@ public class UserModificationTests extends TestBase {
 
   @Test
   public void testUserModification(){
-    Users before = app.user().all();
+    Users before = app.db().users();
     UserData modifiedUser = before.iterator().next();
-   UserData user = new UserData().withId(modifiedUser.getId()).withUserFirstname("3test_user_firstname")
+    UserData user = new UserData().withId(modifiedUser.getId()).withUserFirstname("3test_user_firstname")
             .withUserLastname("3test_user_lastname").withAddress("3test_address").withHomePhone("3test_phone").withMobilePhone("mobile").withWorkPhone("workPhone").withEmail("3test_email");
+    app.goTo().homePage();
     app.user().modify(user);
     assertThat(app.user().count(), equalTo(before.size()));
-    Users after = app.user().all();
+    Users after = app.db().users();
     assertThat(after, equalTo(before.without(modifiedUser).withAdded(user)));
 
   }
