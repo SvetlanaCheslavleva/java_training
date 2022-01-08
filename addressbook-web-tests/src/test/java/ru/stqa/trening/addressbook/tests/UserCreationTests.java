@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.trening.addressbook.model.GroupData;
+import ru.stqa.trening.addressbook.model.Groups;
 import ru.stqa.trening.addressbook.model.UserData;
 import ru.stqa.trening.addressbook.model.Users;
 
@@ -55,6 +56,9 @@ public class UserCreationTests extends TestBase {
 
   @Test(dataProvider = "validUsersFromJson")
   public void testUserCreation(UserData user)  {
+ /*   Groups groups = app.db().groups();
+    UserData user = new UserData().withUserFirstname("test_user_firstname'").withUserLastname("test_user_lastname")
+            .withAddress("test_address").inGroup(groups.iterator().next());*/
     app.goTo().homePage();
     Users before = app.db().users();
     app.user().create(user);
@@ -78,5 +82,21 @@ public class UserCreationTests extends TestBase {
     assertThat(after, equalTo(before));
     verifyUserListInUI();
   }
+
+/* Доработать
+ @Test
+  public void testUserInGroup()  {
+    Groups groups = app.db().groups();
+    File photo = new File("src/test/resources/stru.png");
+    UserData user = new UserData().withUserFirstname("test_user_firstname'").withUserLastname("test_user_lastname")
+            .withPhoto(photo).inGroup(groups.iterator().next());
+    app.goTo().homePage();
+    Users before = app.db().users();
+    app.user().fillUserForm(user, true);
+    app.user().submitUserCreation();
+    app.user().homePage();
+  }
+  
+ */
 
 }

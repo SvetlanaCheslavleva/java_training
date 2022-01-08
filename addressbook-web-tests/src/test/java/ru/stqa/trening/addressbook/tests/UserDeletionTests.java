@@ -31,5 +31,4 @@ public class UserDeletionTests extends TestBase {
     assertThat(after, equalTo(before.without(deletedUser)));
     verifyUserListInUI();
     }
-
 }
