@@ -1,5 +1,7 @@
 package ru.stqa.trening.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +10,17 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.trening.addressbook.appmanager.ApplicationManager;
+import ru.stqa.trening.addressbook.model.GroupData;
+import ru.stqa.trening.addressbook.model.Groups;
+import ru.stqa.trening.addressbook.model.UserData;
+import ru.stqa.trening.addressbook.model.Users;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class TestBase {
 
@@ -37,6 +47,25 @@ public class TestBase {
   @AfterMethod(alwaysRun = true)
   public void logTestStop(Method m) {
     logger.info("Stop test " + m.getName());
+  }
+
+  public void verifyGroupListInUI() {
+    if (Boolean.getBoolean("groupsVerifyUI")) {
+      Groups dbGroups = app.db().groups();
+      Groups uiGroups = app.group().all();
+      assertThat(uiGroups, equalTo(dbGroups.stream()
+              .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+              .collect(Collectors.toSet())));
+    }
+  }
+  public void verifyUserListInUI() {
+    if (Boolean.getBoolean("usersVerifyUI")) {
+      Users dbUsers = app.db().users();
+      Users uiUsers = app.user().all();
+      assertThat(uiUsers, equalTo(dbUsers.stream()
+              .map((g) -> new UserData().withId(g.getId()).withUserFirstname(g.getUserFirstname()).withUserLastname(g.getUserLastname()))
+              .collect(Collectors.toSet())));
+    }
   }
 
 }

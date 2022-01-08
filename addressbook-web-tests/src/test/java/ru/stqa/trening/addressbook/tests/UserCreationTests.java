@@ -61,6 +61,7 @@ public class UserCreationTests extends TestBase {
     assertThat(app.user().count(), equalTo(before.size() + 1));
     Users after = app.db().users();
     assertThat(after, equalTo(before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
+    verifyUserListInUI();
   }
 
 
@@ -68,13 +69,14 @@ public class UserCreationTests extends TestBase {
   @Test(enabled = false)
   public void testBadUserCreation()  {
     app.goTo().homePage();
-    Users before = app.user().all();
+    Users before = app.db().users();
     UserData user = new UserData().withUserFirstname("test_user_firstname'").withUserLastname("test_user_lastname")
             .withAddress("test_address").withHomePhone("test_phone").withMobilePhone("mobile").withWorkPhone("workPhone").withEmail("test_email");
     app.user().create(user);
     assertThat(app.user().count(), equalTo(before.size()));
-    Users after = app.user().all();
+    Users after = app.db().users();
     assertThat(after, equalTo(before));
+    verifyUserListInUI();
   }
 
 }

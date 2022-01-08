@@ -29,6 +29,15 @@ task testGroups(type: Test) {
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
+
+    if (project.hasProperty('groupsVerifyUI')) {
+        systemProperty 'groupsVerifyUI', "${groupsVerifyUI}"
+    }
+
+    if (project.hasProperty('usersVerifyUI')) {
+        systemProperty 'usersVerifyUI', "${usersVerifyUI}"
+    }
+
 }
 
 task testUsers(type: Test) {
@@ -40,6 +49,14 @@ task testUsers(type: Test) {
     }
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
+    }
+
+    if (project.hasProperty('groupsVerifyUI')) {
+        systemProperty 'groupsVerifyUI', "${groupsVerifyUI}"
+    }
+
+    if (project.hasProperty('usersVerifyUI')) {
+        systemProperty 'usersVerifyUI', "${usersVerifyUI}"
     }
 
 }
