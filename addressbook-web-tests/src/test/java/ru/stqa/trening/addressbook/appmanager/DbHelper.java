@@ -42,4 +42,13 @@ public class DbHelper {
     return new Users(result);
   }
 
+  public UserData getUserFromDb(int id) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    UserData single = (UserData) session.createQuery(String.format("from UserData where id = %s", id)).uniqueResult();
+    session.getTransaction().commit();
+    session.close();
+    return single;
+  }
+
 }

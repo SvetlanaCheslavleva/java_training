@@ -57,7 +57,7 @@ public class UserCreationTests extends TestBase {
   @Test(dataProvider = "validUsersFromJson")
   public void testUserCreation(UserData user)  {
 /*    Groups groups = app.db().groups();
-    UserData user = new UserData().withUserFirstname("test_user_firstname'").withUserLastname("test_user_lastname")
+    UserData user = new UserData().withUserFirstname("test_user_firstname").withUserLastname("test_user_lastname")
             .withAddress("test_address").inGroup(groups.iterator().next());*/
     app.goTo().homePage();
     Users before = app.db().users();
@@ -96,7 +96,6 @@ public class UserCreationTests extends TestBase {
    Users after = app.db().users();
    assertThat(after, equalTo(before.withAdded(newUser.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
    verifyUserListInUI();
-
   }
 
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.trening.addressbook.model.GroupData;
 import ru.stqa.trening.addressbook.model.UserData;
 import ru.stqa.trening.addressbook.model.Users;
 
@@ -105,6 +106,23 @@ public class UserHelper extends HelperBase{
     closeAlert();
     pause();
     userCache = null;
+  }
+
+  public void addUserInGroup(UserData user, GroupData group) {
+    selectUserById(user.getId());
+    new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
+    click(By.name("add"));
+    userCache = null;
+  }
+
+  public void removeContactFromGroup(UserData user, int id) {
+    selGroupForDel(id);
+    selectUserById(user.getId());
+    click(By.name("remove"));
+  }
+
+  public void selGroupForDel(int id) {
+    new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(id));
   }
 
   public boolean isThereAUser() {
