@@ -56,7 +56,7 @@ public class UserCreationTests extends TestBase {
 
   @Test(dataProvider = "validUsersFromJson")
   public void testUserCreation(UserData user)  {
- /*   Groups groups = app.db().groups();
+/*    Groups groups = app.db().groups();
     UserData user = new UserData().withUserFirstname("test_user_firstname'").withUserLastname("test_user_lastname")
             .withAddress("test_address").inGroup(groups.iterator().next());*/
     app.goTo().homePage();
@@ -83,20 +83,20 @@ public class UserCreationTests extends TestBase {
     verifyUserListInUI();
   }
 
-/* Доработать
- @Test
+ @Test(enabled = false)
   public void testUserInGroup()  {
     Groups groups = app.db().groups();
     File photo = new File("src/test/resources/stru.png");
-    UserData user = new UserData().withUserFirstname("test_user_firstname'").withUserLastname("test_user_lastname")
+    UserData newUser = new UserData().withUserFirstname("test_user_firstname").withUserLastname("test_user_lastname")
             .withPhoto(photo).inGroup(groups.iterator().next());
-    app.goTo().homePage();
-    Users before = app.db().users();
-    app.user().fillUserForm(user, true);
-    app.user().submitUserCreation();
-    app.user().homePage();
+   app.goTo().homePage();
+   Users before = app.db().users();
+   app.user().create(newUser);
+   assertThat(app.user().count(), equalTo(before.size() + 1));
+   Users after = app.db().users();
+   assertThat(after, equalTo(before.withAdded(newUser.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
+   verifyUserListInUI();
+
   }
-  
- */
 
 }

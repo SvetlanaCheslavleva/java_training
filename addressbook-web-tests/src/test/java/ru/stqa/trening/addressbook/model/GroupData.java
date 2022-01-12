@@ -34,9 +34,6 @@ public class GroupData {
   @Type(type = "text")
   private String footer;
 
-  public Set<UserData> getUsers() {
-    return new Users(users);
-  }
 
   @ManyToMany(mappedBy = "groups")
   private Set<UserData> users = new HashSet<UserData>();
@@ -60,6 +57,11 @@ public class GroupData {
   public GroupData withFooter(String footer) {
     this.footer = footer;
     return this;
+  }
+
+
+  public Set<UserData> getUsers() {
+    return new Users(users);
   }
 
   public int getId() {

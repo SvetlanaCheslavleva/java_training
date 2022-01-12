@@ -58,7 +58,7 @@ public class TestBase {
               .collect(Collectors.toSet())));
     }
   }
-  public void verifyUserListInUI() {
+  public void  verifyUserListInUI() {
     if (Boolean.getBoolean("usersVerifyUI")) {
       Users dbUsers = app.db().users();
       Users uiUsers = app.user().all();
