@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class UserAddToGroupTests extends TestBase{
@@ -36,7 +37,7 @@ public class UserAddToGroupTests extends TestBase{
     GroupData groupForAdd = selectedGroup(user);
     app.user().addUserInGroup(user, groupForAdd);
     Groups after = app.db().getUserFromDb(user.getId()).getGroups();
-    equalTo(before.withAdded(groupForAdd));
+    assertThat(after, equalTo(before.withAdded(groupForAdd)));
   }
 
   public UserData selectedUser() {
