@@ -80,8 +80,8 @@ public class JamesHelper {
     readUntil("Password:");
     write(password);
 
-    //REad welcome message
-    readUntil("Welcome " +login+ ". Help for a list of commands");
+    //Read welcome message
+    readUntil("Welcome "+login+". Help for a list of commands");
   }
 
   private String readUntil(String pattern) {
@@ -90,7 +90,7 @@ public class JamesHelper {
       StringBuffer sb = new StringBuffer();
       char ch = (char) in.read();
       while (true) {
-        System.out.println(ch);
+        System.out.print(ch);
         sb.append(ch);
         if (ch == lastChar) {
           if (sb.toString().endsWith(pattern)) {
