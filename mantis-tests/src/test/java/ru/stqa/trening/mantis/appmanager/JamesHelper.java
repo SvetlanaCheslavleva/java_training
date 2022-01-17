@@ -72,11 +72,11 @@ public class JamesHelper {
     readUntil("Login id:");
     write("");
     readUntil("Password:");
-    write(password);
+    write("");
 
     //Second login attempt, must be successful
     readUntil("Login id:");
-    write("");
+    write(login);
     readUntil("Password:");
     write(password);
 
