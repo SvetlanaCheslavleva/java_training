@@ -74,14 +74,14 @@ public class JamesHelper {
     readUntil("Password:");
     write("");
 
-    //Second login attempt, must be successful
+   //Second login attempt, must be successful
     readUntil("Login id:");
     write(login);
     readUntil("Password:");
     write(password);
 
     //Read welcome message
-    readUntil("Welcome "+login+". Help for a list of commands");
+    readUntil("Welcome "+login+". HELP for a list of commands");
   }
 
   private String readUntil(String pattern) {
