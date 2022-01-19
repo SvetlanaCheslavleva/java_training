@@ -19,11 +19,12 @@ public class ApplicationManager {
   private final Properties properties;
   private WebDriver wd;
 
+  private DbHelper dbHelper;
   private String browser;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
   private MailHelper mailHelper;
-  private JamesHelper jamesHelper;
+  //private JamesHelper jamesHelper;
 
 
   public ApplicationManager(String browser) {
@@ -86,10 +87,17 @@ public class ApplicationManager {
     return mailHelper;
   }
 
-  public JamesHelper james() {
+  /*public JamesHelper james() {
     if (jamesHelper == null) {
       jamesHelper = new JamesHelper(this);
     }
     return jamesHelper;
+  }*/
+
+  public DbHelper db() {
+    if (dbHelper == null) {
+      dbHelper = new DbHelper(this);
+    }
+    return dbHelper;
   }
 }
