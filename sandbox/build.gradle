@@ -8,4 +8,5 @@ repositories {
 
 dependencies {
     implementation 'org.testng:testng:7.4.0'
+    implementation 'com.jayway.restassured:rest-assured:2.9.0'
 }

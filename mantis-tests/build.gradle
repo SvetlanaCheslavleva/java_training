@@ -18,6 +18,7 @@ dependencies {
     implementation 'mysql:mysql-connector-java:5.1.38'
     implementation 'org.hibernate:hibernate-vibur:5.5.6.Final'
     implementation 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
+    implementation 'com.jayway.restassured:rest-assured:2.9.0'
 }
 
 test {
