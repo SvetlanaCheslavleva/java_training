@@ -1,45 +1,45 @@
 package ru.stqa.trening.rest;
 
-import org.openqa.selenium.remote.BrowserType;
-import org.testng.SkipException;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import ru.stqa.trening.mantis.appmanager.ApplicationManager;
 
-import javax.xml.rpc.ServiceException;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+;
+import com.google.gson.reflect.TypeToken;
+import org.apache.http.client.fluent.Executor;
+import org.apache.http.client.fluent.Request;
+import org.testng.SkipException;
+
+
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
+import java.util.Set;
 
 
 public class TestBase {
 
-  protected static ApplicationManager app
-          = new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
+  public boolean isIssueOpen(int issueId) throws IOException {
+    String issueById = getExecutor().execute(Request.Get(String.format("https://bugify.stqa.ru/api/issues/%s.json", issueId))).returnContent().asString();
+    JsonElement parsed = new JsonParser().parse(issueById);
+    JsonElement jsonIssues = parsed.getAsJsonObject().get("issues");
+    Set<Issue> setIssues = new Gson().fromJson(jsonIssues, new TypeToken<Set<Issue>>() {
+    }.getType());
+    Issue selectedIssue = setIssues.iterator().next();
+    System.out.println("state_name = " + selectedIssue.getStatus());
 
-  @BeforeSuite
-  public void setUp() throws Exception {
-    app.init();
-    //app.ftp().upload(new File("src/test/resources/config_inc.php"), "config_inc.php", "config_inc.php.bak");
-  }
-
-  @AfterSuite(alwaysRun = true)
-  public void tearDown() throws IOException {
-    //app.ftp().restore("config_inc.php.bak", "config_inc.php");
-    app.stop();
-  }
-
-  public boolean isIssueOpen(int issueId) throws MalformedURLException, RemoteException {
-    if(app.soap().getIssueStatus(issueId).equals("Rresolved") || app.soap().getIssueStatus(issueId).equals("Closed")) {
+    if(selectedIssue.getStatus().equals("Rresolved") || selectedIssue.getStatus().equals("Closed")) {
       return false;
     } else {
       return true;
     }
   }
 
-  public void skipIfNotFixed(int issueId) throws MalformedURLException, RemoteException {
+  public void skipIfNotFixed(int issueId) throws IOException {
     if (isIssueOpen(issueId)) {
       throw new SkipException("Ignored because of issue " + issueId);
     }
+  }
+
+  private Executor getExecutor() {
+    return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");
   }
 }

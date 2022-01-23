@@ -19,6 +19,7 @@ public class RestTests extends TestBase{
 
   @Test
   public void testCreateIssue() throws IOException {
+    skipIfNotFixed(1774);
     Set<Issue> oldIssues = getIssues();
     Issue newIssue = new Issue().withSubject("Test issue").withDescription("New test issue");
     int issueId = createIssue(newIssue);
@@ -35,7 +36,7 @@ public class RestTests extends TestBase{
     return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType());
   }
 
-  private Executor getExecutor() {
+  protected Executor getExecutor() {
     return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");
   }
 
