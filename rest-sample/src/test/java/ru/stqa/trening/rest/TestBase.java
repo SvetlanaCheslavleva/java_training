@@ -1,11 +1,10 @@
-package ru.stqa.trening.mantis.tests;
+package ru.stqa.trening.rest;
 
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.trening.mantis.appmanager.ApplicationManager;
-
 
 import javax.xml.rpc.ServiceException;
 import java.io.IOException;
@@ -30,15 +29,15 @@ public class TestBase {
     app.stop();
   }
 
-  public boolean isIssueOpen(int issueId) throws MalformedURLException, ServiceException, RemoteException {
-    if(app.soap().getIssueStatus(issueId).equals("resolved") || app.soap().getIssueStatus(issueId).equals("closed")) {
+  public boolean isIssueOpen(int issueId) throws MalformedURLException, RemoteException {
+    if(app.soap().getIssueStatus(issueId).equals("Rresolved") || app.soap().getIssueStatus(issueId).equals("Closed")) {
       return false;
     } else {
       return true;
     }
   }
 
-  public void skipIfNotFixed(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+  public void skipIfNotFixed(int issueId) throws MalformedURLException, RemoteException {
     if (isIssueOpen(issueId)) {
       throw new SkipException("Ignored because of issue " + issueId);
     }
