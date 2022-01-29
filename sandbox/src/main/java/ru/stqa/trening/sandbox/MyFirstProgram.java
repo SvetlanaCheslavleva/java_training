@@ -8,14 +8,14 @@ public class MyFirstProgram {
         hello("Sveta");
 
         Square s = new Square(5);
-        System.out.println("Площадь квадрата со стороной " + s.l + " = " + s.area());
+        System.out.println("Area of a square with a side " + s.l + " = " + s.area());
 
         Rectangle r = new Rectangle(4, 6);
-        System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + r.area());
+        System.out.println("Area of a rectangle with sides " + r.a + " и " + r.b + " = " + r.area());
 
         Point p1 = new Point(0, 0);
         Point p2 = new Point(-1, -2);
-        System.out.println("Расстояние между двух точек = "+ p1.distance(p2));
+        System.out.println("Distance between two points = "+ p1.distance(p2));
     }
 
     public static void hello(String somebody){

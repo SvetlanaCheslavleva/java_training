@@ -9,3 +9,6 @@ dependencies {
     implementation 'com.jcabi:jcabi-github:1.1.2'
 }
 
+test {
+    useTestNG()
+}
