@@ -6,6 +6,10 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    agent
+}
+
 dependencies {
     implementation 'org.testng:testng:7.4.0'
     implementation 'org.seleniumhq.selenium:selenium-java:4.1.0'
@@ -17,8 +21,10 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.27'
     implementation 'com.jayway.restassured:rest-assured:2.9.0'
     testImplementation 'org.hibernate:hibernate-core:5.4.33'
-
+    agent "org.aspectj:aspectjweaver:1.8.0"
+    implementation "ru.yandex.qatools.allure:allure-testng-adaptor:1.4.0.RC4"
 }
+
 
 task testGroups(type: Test) {
     useTestNG() {
@@ -42,6 +48,10 @@ task testGroups(type: Test) {
         systemProperty 'usersVerifyUI', "${usersVerifyUI}"
     }
 
+}
+
+testGroups.doFirst {
+    jvmArgs "-javaagent:${configurations.agent.singleFile}"
 }
 
 task testUsers(type: Test) {
