@@ -23,6 +23,7 @@ dependencies {
     testImplementation 'org.hibernate:hibernate-core:5.4.33'
     agent "org.aspectj:aspectjweaver:1.8.0"
     implementation "ru.yandex.qatools.allure:allure-testng-adaptor:1.4.0.RC4"
+    implementation 'org.robotframework:robotframework:4.1.2'
 }
 
 
@@ -76,4 +77,11 @@ task testUsers(type: Test) {
         systemProperty 'usersVerifyUI', "${usersVerifyUI}"
     }
 
+}
+
+task rf(type: JavaExec) {
+    main = 'org.robotframework.RobotFramework'
+    classpath = sourceSets.test.runtimeClasspath
+    args '--outputdir', 'build/rf-report'
+    args 'src/test/resources/rf'
 }
