@@ -24,6 +24,8 @@ dependencies {
     agent "org.aspectj:aspectjweaver:1.8.0"
     implementation "ru.yandex.qatools.allure:allure-testng-adaptor:1.4.0.RC4"
     implementation 'org.robotframework:robotframework:4.1.2'
+    implementation 'info.cukes:cucumber-java:1.2.6'
+    implementation 'info.cukes:cucumber-testng:1.2.6'
 }
 
 
